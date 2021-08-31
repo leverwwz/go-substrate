@@ -113,16 +113,12 @@ func (c *Client) GetGenesisHash() string {
 	return hash.Hex()
 }
 
-/*
-自定义设置prefix，如果启动时加载的prefix是错误的，则需要手动配置prefix
-*/
+
 func (c *Client) SetPrefix(prefix []byte) {
 	c.prefix = prefix
 }
 
-/*
-根据height解析block，返回block是否包含交易
-*/
+
 func (c *Client) GetBlockByNumber(height int64) (*models.BlockResponse, error) {
 	hash, err := c.C.RPC.Chain.GetBlockHash(uint64(height))
 	if err != nil {
@@ -133,9 +129,7 @@ func (c *Client) GetBlockByNumber(height int64) (*models.BlockResponse, error) {
 	return c.GetBlockByHash(blockHash)
 }
 
-/*
-根据blockHash解析block，返回block是否包含交易
-*/
+
 func (c *Client) GetBlockByHash(blockHash string) (*models.BlockResponse, error) {
 	var (
 		block *models.SignedBlock
@@ -174,9 +168,6 @@ type parseBlockExtrinsicParams struct {
 	extrinsicIdx, length                           int
 }
 
-/*
-解析外部交易extrinsic
-*/
 func (c *Client) parseExtrinsicByDecode(extrinsics []string, blockResp *models.BlockResponse) error {
 	var (
 		params    []parseBlockExtrinsicParams
